@@ -1,0 +1,11 @@
+public class gte{
+   private int one=6, two=4, total;	              
+   public void add(){  total = one + two;  }
+   public void print(){  System.out.println(total);  }
+
+   public static void main(String args[]){
+      gte test = new gte();
+      test.add();	
+      test.print();
+   }
+}

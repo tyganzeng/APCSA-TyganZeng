@@ -1,0 +1,19 @@
+public class gte {
+   private int one,two,total;
+ 
+   public void setNums(int n1, int n2){
+      one=n1;
+      two=n2;
+   }	              
+   public void add(){  
+      total = one + two;  
+   }
+   public void print(){  System.out.println(total);  }
+
+   public static void main(String args[]){
+      gte test = new gte();
+      test.setNums(32,21);
+      test.add();	
+      test.print();
+   }
+}

@@ -1,0 +1,15 @@
+public class gte {
+   private int one = 9, two = 7, total;	              
+   public void add(){  
+      one =  4;
+      total = one + two;  
+      two = 8;
+   }
+   public void print(){  System.out.println(total);  }
+
+   public static void main(String args[]){
+      gte test = new gte();
+      test.add();	
+      test.print();
+   }
+}
