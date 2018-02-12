@@ -31,7 +31,7 @@ public class Magpie2
 	public String getResponse(String statement)
 	{
 		String response = "";
-		if (statement.indexOf("no") >= 0)
+		if (statement.indexOf(" no ") >= 0)
 		{
 			response = "Why so negative?";
 		}
@@ -76,6 +76,12 @@ public class Magpie2
 		}
 		else if (statement.equals("")){
 			response = "Speak up, please.";
+		}
+		else if (statement.indexOf("how") >= 0){
+			response = "With hard work and patience, I'm sure.";
+		}
+		else if (statement.indexOf("do you") >= 0){
+			response = "No, I don't believe so.";
 		}
 		else 
 		{
