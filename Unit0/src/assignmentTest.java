@@ -8,8 +8,16 @@ public class assignmentTest {
 
 		public static void main ( String[] args )
 		{
-			String h = "hello";
-			System.out.println(h.substring(2));
+			System.out.print(test());
+		}
+		
+		public static int test(){
+			int h = 100, i = 90;
+			if(h == 100){
+				return 5;
+			}
+			return i;
+					
 		}
 	
 }
