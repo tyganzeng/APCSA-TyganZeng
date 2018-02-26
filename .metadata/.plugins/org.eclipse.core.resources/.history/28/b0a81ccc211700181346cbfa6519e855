@@ -1,0 +1,15 @@
+/**
+ * This is a class that tests the Card class.
+ */
+public class CardTester {
+
+	/**
+	 * The main method in this class checks the Card operations for consistency.
+	 *	@param args is not used.
+	 */
+	public static void main(String[] args) {
+		Card c1 = new Card("ace", "hearts", 1);
+		Card c2 = new Card("ace", "hearts", 1);
+		assert c1.matches(c2) : "Duplicate cards do not match.";
+	}
+}

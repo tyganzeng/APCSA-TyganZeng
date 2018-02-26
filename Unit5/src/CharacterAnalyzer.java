@@ -33,7 +33,7 @@ public class CharacterAnalyzer
 
 	public boolean isUpper( )
 	{
-		if(theChar > 64 && theChar < 97){
+		if(theChar > 64 && theChar < 91){
 			return true;
 		} else{
 			return false;
@@ -51,7 +51,7 @@ public class CharacterAnalyzer
 	
 	public boolean isNumber( )
 	{
-		if(theChar < 58 && theChar > 46){
+		if(theChar < 58 && theChar > 47){
 			return true;
 		} else{ 
 			return false;

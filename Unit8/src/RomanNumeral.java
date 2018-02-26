@@ -20,43 +20,27 @@ public class RomanNumeral
 	public RomanNumeral(String str)
 	{
 		roman = str;
-		for (int i = 0; i < LETTERS.length; i++){
-			while (roman.indexOf(LETTERS[i], 0) == 0){
-				number = number + NUMBERS[i];
-				roman = roman.substring(1);
-			}
-		}
-		
 	}
 
 	public RomanNumeral(int orig)
 	{
 		number = orig;
-		for (int i = 0; i < NUMBERS.length; i++){
-			while(number >= NUMBERS[i]){
-				number = number - NUMBERS[i];
-				roman = roman + LETTERS[i];
-			}
-		}
 	}
 
 	public void setNumber(int num)
 	{
 		number = num;
 		roman = "";
-		for (int i = 0; i < NUMBERS.length; i++){
-			while(number >= NUMBERS[i]){
-				number = number - NUMBERS[i];
-				roman = roman + LETTERS[i];
-			}
-		}
 	}
 
 	public void setRoman(String rom)
 	{
-		
 		roman = rom;
 		number = 0;
+	}
+
+	public Integer getNumber()
+	{
 		for (int i = 0; i < LETTERS.length; i++){
 			while (roman.indexOf(LETTERS[i], 0) == 0){
 				number = number + NUMBERS[i];
@@ -67,16 +51,17 @@ public class RomanNumeral
 				}
 			}
 		}
-	}
-
-	public Integer getNumber()
-	{
 		return number;
 	}
 
 	public String toString()
 	{
-		
+		for (int i = 0; i < NUMBERS.length; i++){
+			while(number >= NUMBERS[i]){
+				number = number - NUMBERS[i];
+				roman = roman + LETTERS[i];
+			}
+		}
 		return roman + "\n";
 	}
 }
