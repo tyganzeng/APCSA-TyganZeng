@@ -1,0 +1,49 @@
+
+public class Numbers {
+	public static boolean isGoofy(int num) {
+		//get number of digits
+		int digits = 0;
+		for (int i = 0; i < 10; i++){
+			if(num - (Math.pow(10, i)) > 0){
+				digits = i + 1;
+			}
+		}
+		
+		int[] digitList = new int[digits];
+		for (int i = digitList.length - 1; i >= 0; i++){
+			double copy = num;
+			int counter = 0;
+			while(copy > Math.pow(10, i)){
+				copy = copy - Math.pow(10, i);
+				counter++;
+			}
+			digitList[i] = counter;
+		}
+		return true;
+		
+	}
+	
+	public static void tester(int num){
+		int digits = 0;
+		for (int i = 0; i < 10; i++){
+			if(num - (Math.pow(10, i)) > 0){
+				digits = i;
+			}
+		}
+		
+		int[] digitList = new int[digits];
+		for (int i = digitList.length - 1; i >= 0; i++){
+			double copy = num;
+			int counter = 0;
+			while(copy > Math.pow(10, i)){
+				copy = copy - Math.pow(10, i);
+				counter++;
+			}
+			digitList[i] = counter;
+		}
+
+		for (int i = 0; i < digitList.length; i++){
+		System.out.println(digitList[i]);
+		}
+	}
+}

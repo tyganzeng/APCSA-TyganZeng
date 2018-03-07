@@ -1,0 +1,13 @@
+
+public class Numbers {
+	public static int isGoofy(int num) {
+		int digits = 0;
+		for (int i = 10; i > 0; i--){
+			if(num - (10 * i) > 0){
+				digits = i;
+				break;
+			}
+		}
+		return digits;
+	}
+}

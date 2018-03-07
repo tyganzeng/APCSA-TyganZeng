@@ -1,0 +1,9 @@
+
+public class LabAssessment1 {
+	public static void main(String[] args) {
+		Numbers.tester(12);
+	}
+		
+
+	
+}
