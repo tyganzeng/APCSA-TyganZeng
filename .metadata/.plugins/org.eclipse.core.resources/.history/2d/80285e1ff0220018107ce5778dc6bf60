@@ -1,0 +1,52 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import java.util.Arrays;
+import java.util.Scanner;
+import static java.lang.System.*;
+import static java.util.Arrays.*;
+import java.io.File;
+
+public class GradeBookFileRunner
+{
+   public static void main( String args[] ) throws Exception
+   {
+		out.println("Welcome to the Class Stats program!");
+		
+		Scanner file = new Scanner(new File("C:\\Users\\zengt9949\\Desktop\\APCSA-Tygan\\Unit11\\src\\gradebook.dat"));
+		String className = "";
+		while(!file.hasNextInt()){
+			className = className + file.next() + " ";
+		}
+		int classSize = file.nextInt();
+		Class myClass = new Class(className, classSize);
+		for(int i = 0; i < classSize; i++){
+			String name = "";
+			String gradesList = "";
+			while(!file.hasNextInt()){
+				name  = name + file.next();
+			}
+			while(file.hasNextInt() || file.next().equals("-")){
+				gradesList = gradesList + file.hasNext();
+			}
+			Student newStudent = new Student(name, gradesList);
+			myClass.addStudent(i,newStudent);
+		}
+		
+
+
+
+
+
+
+
+
+
+
+
+
+	}		
+}
