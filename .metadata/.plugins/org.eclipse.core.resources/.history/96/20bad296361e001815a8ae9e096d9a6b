@@ -1,9 +1,0 @@
-
-public class LabAssessment1 {
-	public static void main(String[] args) {
-		System.out.println(Numbers.isGoofy(1210));
-	}
-		
-
-	
-}
