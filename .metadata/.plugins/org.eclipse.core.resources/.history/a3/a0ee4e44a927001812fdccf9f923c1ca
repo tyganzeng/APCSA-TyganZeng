@@ -33,13 +33,16 @@ public class GradeBookRunner
 			Student s = new Student (stuName, gradeList);
 			myClass.addStudent(i, s);
 		}
-		myClass.sort();
+
 
 		out.println(myClass);
-		for (int i = 0; i < numStudents; i++){
-			out.println(String.format(myClass.getStudentName(i) + "\'s average = %.2f",myClass.getStudentAverage(i)));	
-		}
 		
+		out.println(String.format(myClass.getStudentName(0) + "\'s average = %.2f",myClass.getStudentAverage(0)));	
+		out.println(String.format(myClass.getStudentName(1) + "\'s average = %.2f",myClass.getStudentAverage(1)));	
+		out.println(String.format(myClass.getStudentName(2) + "\'s average %.2f",myClass.getStudentAverage(2)));	
+		
+		out.println(String.format("Sandy" + "\'s average %.2f",myClass.getStudentAverage("Sandy")));	
+
 		out.println("Failure List = " + myClass.getFailureList(70));	
 		out.println("Highest Average = " + myClass.getStudentWithHighestAverage());
 		out.println("Lowest Average = " + myClass.getStudentWithLowestAverage());

@@ -33,7 +33,7 @@ public class GradeBookRunner
 			Student s = new Student (stuName, gradeList);
 			myClass.addStudent(i, s);
 		}
-		myClass.sort();
+
 
 		out.println(myClass);
 		for (int i = 0; i < numStudents; i++){
