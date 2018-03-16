@@ -2,12 +2,14 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="rhs" key="selection"/>
+		<item value="" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="printcard"/>
+			<item value="test"/>
 			<item value="((Monster) obj)"/>
 			<item value="sub"/>
 			<item value="substring"/>
@@ -16,6 +18,7 @@
 			<item value="statement.indexOf("/>
 		</list>
 		<list key="replacehistory">
+			<item value="myClass"/>
 			<item value="rhs"/>
 			<item value="isGoofy"/>
 			<item value="findKeyword(statement, "/>

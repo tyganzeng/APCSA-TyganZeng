@@ -1,0 +1,30 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class assignmentTest {
+	//© A+ Computer Science  -  www.apluscompsci.com
+	//Name -
+	//Date -
+	//Class -
+	//Lab  -
+
+		public static void main ( String[] args )
+		{
+			List<Integer> x = new ArrayList<Integer>();
+			x.add(5);
+			x.add(6);
+			Collections.swap(x, 0, 1);
+			System.out.println(x);
+		}
+		
+		public static int test(){
+			int h = 100, i = 90;
+			if(h == 100){
+				return 5;
+			}
+			return i;
+					
+		}
+	
+}

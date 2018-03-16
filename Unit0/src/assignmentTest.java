@@ -1,14 +1,20 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class assignmentTest {
 	//© A+ Computer Science  -  www.apluscompsci.com
-	//Name -
+	//Name - 
 	//Date -
 	//Class -
 	//Lab  -
 
 		public static void main ( String[] args )
 		{
-			System.out.print(test());
+			String x = "hello";
+			String y = x;
+			x = null;
+			System.out.println(x);
 		}
 		
 		public static int test(){
