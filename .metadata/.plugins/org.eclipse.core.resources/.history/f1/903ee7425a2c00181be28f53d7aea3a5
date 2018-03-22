@@ -1,0 +1,23 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import static java.lang.System.*;
+
+public class Lab21g
+{
+	public static void main(String args[])
+	{
+		//instantiate an AtCounter
+		AtCounter x = new AtCounter();
+		//test the code
+		System.out.println(x.countAts(0, 0));
+		System.out.println(x.countAts(2, 5));
+		System.out.println(x.countAts(5, 0));
+		System.out.println(x.countAts(0, 0));
+		System.out.println(x.countAts(0, 0));
+		
+	}
+}

@@ -17,6 +17,7 @@ public class Word implements Comparable<Word>
 
 	public int compareTo( Word rhs )
 	{
+		String x = rhs.toString();
 		if(word.length() > rhs.word.length()){
 			return 1;
 		}

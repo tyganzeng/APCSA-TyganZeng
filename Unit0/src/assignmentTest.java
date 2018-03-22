@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,19 +12,27 @@ public class assignmentTest {
 
 		public static void main ( String[] args )
 		{
-			String x = "hello";
-			String y = x;
-			x = null;
-			System.out.println(x);
+			char[][] x = new char[5][6];
+			for(char[] row : x){
+				Arrays.fill(row, 'a');
+			}
+			System.out.println(x[3][4]);
+			/*int ar[] = {2, 2, 1, 8, 3, 2, 2, 4, 2};
+			 
+	        // To fill complete array with a particular
+	        // value
+	        Arrays.fill(ar, 10);
+	        System.out.println("Array completely filled" +
+	                  " with 10\n" + Arrays.toString(ar));*/
 		}
 		
-		public static int test(){
-			int h = 100, i = 90;
-			if(h == 100){
-				return 5;
+		public static String test(){
+			char j = 'A';
+			String x  = "";
+			for(int i = 0; i < 5; i++){
+				x = x + j;
 			}
-			return i;
-					
+			return x;
 		}
 	
 }
