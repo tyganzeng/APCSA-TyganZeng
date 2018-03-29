@@ -28,7 +28,7 @@ public class FancyWords
 		
 	}
 	/*
-	 * 
+	 *
 	 */
 	public String toString()
 	{

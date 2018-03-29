@@ -31,9 +31,7 @@ public class FancyWord
 	     mat[i][i] = s.charAt(i);
 	     mat[end][i] = s.charAt(i);
 	     mat[s.length() - 1][i] = s.charAt(i);
-
 	   }
-
 	}
 
 	public String toString()
@@ -47,8 +45,6 @@ public class FancyWord
 			}
 			output = output + "\n";
 		}
-
-
 		return output+"\n\n";
 	}
 }

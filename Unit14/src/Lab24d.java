@@ -20,13 +20,6 @@ public class Lab24d
 			System.out.println(x);
 		}
 
-
-
-
-
-
-
-
 	}
 }
 

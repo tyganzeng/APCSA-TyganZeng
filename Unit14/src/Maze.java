@@ -30,7 +30,6 @@ public class Maze
 		for(int i = 0; i < x.length; i++){
 			maze[i/size][i%size] = x[i];
 		}
-
 	}
 
 	public boolean hasExitPath(int r, int c)

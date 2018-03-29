@@ -16,6 +16,7 @@ public class assignmentTest {
 			for(char[] row : x){
 				Arrays.fill(row, 'a');
 			}
+			System.out.println(x[0].length);
 			System.out.println(x[3][4]);
 			/*int ar[] = {2, 2, 1, 8, 3, 2, 2, 4, 2};
 			 
