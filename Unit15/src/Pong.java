@@ -30,7 +30,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 	{
 		//set up all variables related to the game
 		//ball = new BlinkyBall(50,50,20,20);
-		ball = new SpeedUpBall(50,50,20,20);
+		ball = new SpeedUpBall(50,50,10,10,Color.BLUE,3,1);
 		leftPaddle = new Paddle(100,100,10,50,Color.RED,5);
 		rightPaddle = new Paddle(700,100,10,50,Color.GREEN,5);
 
@@ -79,6 +79,8 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				leftScore++;
 			}
 			ball.setXSpeed(-ball.getXSpeed());
+			
+			((SpeedUpBall) ball).increaseSpeed();
 		}
 
 		if(!(ball.getY()>=10 && ball.getY()<=450))
@@ -120,6 +122,8 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				else {
 					ball.setXSpeed(ball.getXSpeed() * -1);
 				}
+				
+				((SpeedUpBall) ball).increaseSpeed();
 			}
 			
 		
@@ -148,7 +152,7 @@ public class Pong extends Canvas implements KeyListener, Runnable
 				else
 					ball.setXSpeed(-ball.getXSpeed());
 				
-				ball.increaseSpeed();
+				((SpeedUpBall) ball).increaseSpeed();
 		}
 
 		//see if the paddles need to be moved
