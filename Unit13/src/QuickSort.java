@@ -32,7 +32,7 @@ public class QuickSort
 */
 	public static void quickSort(int[] list)
 	{
-		passCount = 0;
+		passCount = -1;
 		quickSort(list, 0, list.length - 1);
 		
 	}
@@ -66,6 +66,13 @@ public class QuickSort
 			}
 			while(list[++bot] < pivot){	
 			}
+			
+			/*while(list[top - 1] > pivot){
+				top++;
+			}
+			while(list[bot + 1] < pivot){
+				bot++;
+			}*/
 
 			if(bot >= top){
 				 return top;
