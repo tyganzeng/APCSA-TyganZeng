@@ -1,0 +1,51 @@
+
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Aliens {
+
+	private List<Alien> aliensList;
+	
+	public Aliens(){
+		aliensList = new ArrayList<Alien>();
+		
+		
+	}
+	
+	public void add(Alien x){
+		aliensList.add(x);
+	}
+	
+	public void draw(Graphics window){
+	
+		for(Alien x : aliensList){
+			x.draw(window);
+		}
+	}
+	public void move(){
+		 for(Alien x : aliensList){
+			 x.move("RIGHT");
+		 }
+	}
+	
+	public void checkCollision(ArrayList<Ammo> shots){
+		for(Ammo x : shots){
+			try{
+				for(Alien y : aliensList){
+				
+					if(Math.abs(x.getX() - (y.getX() + 25)) < 50 && Math.abs(x.getY() - (y.getY() + 25)) < 50){	
+						aliensList.remove(y);
+						shots.remove(x);
+					}
+				}
+			}
+			catch(Exception e){
+					
+				}
+			}
+		}
+	}
+	
+}

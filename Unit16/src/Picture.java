@@ -36,6 +36,7 @@ public class Picture extends SimplePicture
   {
     // let the parent class handle this fileName
     super(fileName);
+    System.out.println("Tygan Zeng, Period 1, Computer 06");
   }
   
   /**
@@ -466,7 +467,40 @@ public class Picture extends SimplePicture
     } 
   }
   
-  
+  public void sharpen(int x, int y, int w, int h){
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel currentPixel = null;
+	  Pixel abovePixel = null;
+	  for (int col = x; col < x + w; col++)
+	    {
+	      for (int row = y; row < y + h; row++)
+	      {
+	    	currentPixel = pixels[row][col];
+	    	abovePixel = pixels[row - 1][col - 1];
+	    	currentPixel.setBlue(currentPixel.getBlue() + (int) (0.5 * (currentPixel.getBlue() - abovePixel.getBlue())));
+	    	currentPixel.setRed(currentPixel.getRed() +(int) (0.5 * (currentPixel.getRed() - abovePixel.getRed())));
+	    	currentPixel.setGreen(currentPixel.getGreen() + (int) (0.5 * (currentPixel.getGreen() - abovePixel.getGreen())));
+	    	if(currentPixel.getRed() > 255){
+	    		currentPixel.setRed(255);
+	    	}
+	    	if(currentPixel.getBlue() > 255){
+	    		currentPixel.setBlue(255);
+	    	}
+	    	if(currentPixel.getGreen() > 255){
+	    		currentPixel.setGreen(255);
+	    	}
+	    	if(currentPixel.getRed() < 0){
+	    		currentPixel.setRed(0);
+	    	}
+	    	if(currentPixel.getBlue() < 0){
+	    		currentPixel.setBlue(0);
+	    	}
+	    	if(currentPixel.getGreen() < 0){
+	    		currentPixel.setGreen(0);
+	    	}
+	      }
+	    } 
+  }
   
   /* Main method for testing - each class in Java can have a main 
    * method 

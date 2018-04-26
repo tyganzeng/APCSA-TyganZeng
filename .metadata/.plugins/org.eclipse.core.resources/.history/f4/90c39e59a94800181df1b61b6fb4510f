@@ -1,0 +1,74 @@
+//© A+ Computer Science  -  www.apluscompsci.com
+//Name -
+//Date -
+//Class -
+//Lab  -
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+
+public class Powerup extends MovingThing
+{
+	private int speed;
+	private String type;
+	public Powerup()
+	{
+		this(0,0,1);
+	}
+
+	public Powerup(int x, int y)
+	{
+		this(x,y,1);
+	}
+
+	public Powerup(int x, int y, int s)
+	{
+		super(x, y);
+		speed=s;
+		double random = Math.random() * 2.0;
+		if(random < 1){
+			type = "ATTACKSPEED";
+		}
+		else if(random < 2){
+			type = "SLOW";
+		}
+		System.out.println(random);
+	}
+
+	public void setSpeed(int s)
+	{
+	   speed = s;
+	}
+
+	public int getSpeed()
+	{
+	   return speed;
+	}
+
+	public void draw( Graphics window )
+	{
+		if(type == "ATTACKSPEED"){
+			window.setColor(Color.ORANGE);
+		} 
+		if(type == "SLOW"){
+			window.setColor(Color.BLUE);
+		}
+		window.fillRect(getX(), getY(), 20,20);
+	}
+
+	public void move(String direction) {
+		if (direction.equals("DOWN")) {
+			setY(getY() + speed);
+		}
+	}
+	
+	
+
+	public String toString()
+	{
+		return "";
+	}
+}
