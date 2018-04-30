@@ -1,0 +1,48 @@
+
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+
+
+public class Bullets {
+
+	
+	private List<Ammo> shotsList;
+	
+	/**
+	 * Instantiates a new group of aliens.
+	 *
+	 * @param size Number of aliens
+	 * @param xPos X Position of the first alien to be created.
+	 * @param yPos Y Position of the first alien to be created.
+	 */
+	public Bullets(){
+		
+	}
+
+	public void add(Ammo x){
+		shotsList.add(x);
+		
+	}
+	
+	public void draw(Graphics window){
+		for(Ammo x : shotsList){
+			x.move("UP");
+			x.draw(window);
+		
+			if(x.getY() < 0){
+				shotsList.remove(x);
+			}
+		}
+	}
+	
+	public List<Ammo> getBullets(){
+		return shotsList;
+	}
+	
+
+	
+}

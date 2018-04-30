@@ -1,0 +1,110 @@
+
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+
+public class Aliens {
+
+	private List<Alien> aliensList;
+	private double sz = 4;
+	private int hp = 9;
+	
+	public Aliens(int size, int xPos, int yPos){
+		aliensList = new ArrayList<Alien>();
+		int sizeCounter = size;
+		int counter = 0;
+		for(int i = 0; i < size; i++){
+			aliensList.add(new Alien(xPos,yPos,1,hp,sz));
+			xPos = xPos + 100;
+			counter++;
+			sizeCounter--;
+			if(counter == 4){
+				xPos = 100;
+				yPos = yPos + 100;
+				counter = 0;
+			}
+			if(sizeCounter == size * 0.8){
+				sz = sz - 2.5;
+				hp = hp - 7;
+			}
+			if(sizeCounter == size * 0.3){
+				sz = sz - 0.5;
+				hp = hp - 1;
+			}
+			
+		}
+		
+	}
+	
+	public void add(Alien x){
+		aliensList.add(x);
+		
+	}
+	
+	public void draw(Graphics window){
+		for(Alien x : aliensList){
+			x.draw(window);
+		}
+	}
+	public void move(int alienTimer){
+		 for(Alien x : aliensList){
+			if(alienTimer < 200){
+				x.move("RIGHT");
+			} else if(alienTimer < 400){
+				x.move("DOWN");
+			} else if(alienTimer < 600){
+				x.move("LEFT");
+			} else if(alienTimer < 800){
+				x.move("DOWN");
+			}
+		 }
+	}
+	
+	public void slow(){
+		for(Alien x : aliensList){
+			x.setSpeed(0);
+		}
+	}
+	public void speedUp(){
+		for(Alien x : aliensList){
+			x.setSpeed(1);
+		}
+	}
+	
+	
+	public void checkCollision(ArrayList<Ammo> shots, ArrayList<Powerup> powerups) {
+		for(Ammo x : shots){
+			for(Alien y : aliensList){
+				try{
+					if(Math.abs(x.getX() - (y.getX() + 25)) < 50 && Math.abs(x.getY() - (y.getY() + 25)) < 50){	
+						int xC  = y.getX();
+						int yC = y.getY();
+						y.loseHp();
+						x.loseHp();
+						if(y.getHp() == 0){
+							aliensList.remove(y);
+							double num = Math.random();
+							if (num < 0.3){
+								Powerup z = new Powerup(xC, yC);
+								powerups.add(z);
+							}
+						}
+						if(x.getHp() == 0){
+							shots.remove(x);
+						}
+						
+					}
+				}
+				
+				catch(Exception e){
+					
+				}
+				
+			}
+		}
+	}
+	
+}

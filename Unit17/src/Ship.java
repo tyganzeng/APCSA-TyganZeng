@@ -17,6 +17,7 @@ public class Ship extends MovingThing
 	private int speed;
 	private Image image;
 	private int attackSpeed;
+	private int hp;
 
 	public Ship()
 	{
@@ -32,6 +33,7 @@ public class Ship extends MovingThing
 	{
 		super(x, y);
 		speed=s;
+		hp = 3;
 		try
 		{
 			image = ImageIO.read(new File("C:\\Users\\zengt9949\\Desktop\\APCSA-Tygan\\Unit17\\src\\ship.jpg"));
@@ -89,6 +91,8 @@ public class Ship extends MovingThing
 				}
 			}
 		}
+		
 	}
+	
 	
 }

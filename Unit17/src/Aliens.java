@@ -2,29 +2,62 @@
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 
+
 public class Aliens {
 
+	/** 
+	 * The list of aliens.
+	 * */
 	private List<Alien> aliensList;
 	
+	/** 
+	 * The number of aliens to be created.
+	 */
+	private double sz = 3;
+	
+	/** 
+	 * The health points of the aliens.
+	 *  */
+	private int hp = 9;
+	
+	/**
+	 * Instantiates a new group of aliens.
+	 *
+	 * @param size Number of aliens
+	 * @param xPos X Position of the first alien to be created.
+	 * @param yPos Y Position of the first alien to be created.
+	 */
 	public Aliens(int size, int xPos, int yPos){
 		aliensList = new ArrayList<Alien>();
-
+		int sizeCounter = size;
 		int counter = 0;
 		for(int i = 0; i < size; i++){
-			aliensList.add(new Alien2(xPos,yPos,1));
+			aliensList.add(new Alien(xPos,yPos,1,hp,sz));
 			xPos = xPos + 100;
 			counter++;
+			sizeCounter--;
 			if(counter == 4){
 				xPos = 100;
 				yPos = yPos + 100;
 				counter = 0;
 			}
+			if(sizeCounter == size * 0.8){
+				sz = sz - 1.5;
+				hp = hp - 7;
+			}
+			if(sizeCounter == size * 0.3){
+				sz = sz - 0.5;
+				hp = hp - 1;
+			}
 		}
+		aliensList.add(new Alien(xPos + 100, yPos - 700, 1, 30, 5));
 		
 	}
+	
 	
 	public void add(Alien x){
 		aliensList.add(x);
@@ -32,11 +65,16 @@ public class Aliens {
 	}
 	
 	public void draw(Graphics window){
-	
 		for(Alien x : aliensList){
 			x.draw(window);
 		}
 	}
+	
+	/**
+	 * Moves all aliens.
+	 *
+	 * @param alienTimer The timer that changes the direction of the aliens.
+	 */
 	public void move(int alienTimer){
 		 for(Alien x : aliensList){
 			if(alienTimer < 200){
@@ -51,11 +89,18 @@ public class Aliens {
 		 }
 	}
 	
+	/**
+	 * Stops all movement of aliens.
+	 */
 	public void slow(){
 		for(Alien x : aliensList){
 			x.setSpeed(0);
 		}
 	}
+	
+	/**
+	 * Returns speed back to normal.
+	 */
 	public void speedUp(){
 		for(Alien x : aliensList){
 			x.setSpeed(1);
@@ -63,33 +108,61 @@ public class Aliens {
 	}
 	
 	
+	/**
+	 * Check ammo collisions with aliens. Chance to generate a random powerup
+	 * when an alien dies. Modified for the "pierce" powerup, checks the HP of
+	 * bullet and removes it if 0.
+	 *
+	 * @param shots Ammo that is currently on the screen
+	 * @param powerups List of powerups
+	 */
 	public void checkCollision(ArrayList<Ammo> shots, ArrayList<Powerup> powerups) {
 		for(Ammo x : shots){
 			for(Alien y : aliensList){
 				try{
-					if(Math.abs(x.getX() - (y.getX() + 25)) < 50 && Math.abs(x.getY() - (y.getY() + 25)) < 50){	
+					if(Math.abs(x.getX() - (y.getX() + 40*y.getSize()/2)) < 40*y.getSize()/2 && Math.abs(x.getY() - (y.getY() + 40*y.getSize()/2)) < 40*y.getSize()/2){	
 						int xC  = y.getX();
 						int yC = y.getY();
 						y.loseHp();
+						x.loseHp();
 						if(y.getHp() == 0){
 							aliensList.remove(y);
 							double num = Math.random();
-							System.out.println(num);
-							if (num < 0.2){
-								
+							if (num < 0.3){
 								Powerup z = new Powerup(xC, yC);
 								powerups.add(z);
 							}
 						}
-						shots.remove(x);
+						if(x.getHp() == 0){
+							shots.remove(x);
+						}
 						
 					}
 				}
+				
 				catch(Exception e){
 					
 				}
+				
 			}
 		}
+	}
+	
+	/**
+	 * Check game over.
+	 *
+	 * @return true, if aliens reach bottom or collide with ship
+	 */
+	public boolean checkGameOver(Ship x){
+		for(Alien y : aliensList){
+			if(y.getY() > 500){
+				return true;
+			}
+			if(Math.abs(x.getX() + 20 - (y.getX() + 40*y.getSize()/2)) < 40*y.getSize()/2 && Math.abs(x.getY()-20 - (y.getY() + 40*y.getSize()/2)) < 40*y.getSize()/2){
+				return true;
+			}
+		}
+		return false;
 	}
 	
 }

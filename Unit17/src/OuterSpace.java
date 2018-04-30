@@ -5,6 +5,7 @@
 //Lab  -
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Canvas;
@@ -19,18 +20,19 @@ import java.util.ArrayList;
 public class OuterSpace extends Canvas implements KeyListener, Runnable
 {
 	private Ship ship;
-	private Alien alienOne;
-	private ArrayList<Ammo> shots;
+	Alien x;
+	private Bullets shots;
 	private ArrayList<Ammo> trishotLeft;
 	private ArrayList<Ammo> trishotRight;
 	private ArrayList<Powerup> powerups;
 	//private ArrayList<Alien> aliens;
-	Aliens alienList;
+	private Aliens alienList;
 	private boolean stunned = false;
 	private boolean trishot = false;
-
+	private int alienMoveTimer;
 	private boolean[] keys;
 	private BufferedImage back;
+	private int pierce;
 	private int bulletTimer;
 	private int alienTimer;
 	private int stunnedTimer;
@@ -39,21 +41,19 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		setBackground(Color.black);
 
 		keys = new boolean[5];
-
+		x = new Alien2(100,100,1);
 		stunnedTimer = 0;
 		bulletTimer = 0;
 		alienTimer = 0;
 		//instantiate other stuff
 		ship = new Ship();
-		alienOne = new Alien(100,100,1);
-		shots = new ArrayList<Ammo>();
+		shots = new Bullets();
 		trishotLeft = new ArrayList<Ammo>();
 		trishotRight = new ArrayList<Ammo>();
 		powerups = new ArrayList<Powerup>();
-		alienList = new Aliens(10, 100, 100);
-		//alienList.add(alienOne);
-		//alienList.add(alienTwo);
-		
+		alienList = new Aliens(20, 200, -500);
+		pierce = 1;
+		alienMoveTimer = 0;
 		
 		this.addKeyListener(this);
 		new Thread(this).start();
@@ -86,10 +86,13 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		graphToBack.fillRect(0,0,800,600);
 		ship.draw(graphToBack);
 
-
+		alienMoveTimer++;
 		bulletTimer++;
 		alienTimer++;
 		
+		x.draw(graphToBack);
+		
+		if(!alienList.checkGameOver(ship)){
 		if(keys[0] == true)
 		{
 			if(ship.getX() > 0){
@@ -117,11 +120,11 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		//add code to move stuff
 		if(keys[4] == true){
 			if(bulletTimer > ship.getAttackSpeed()){
-				Ammo x = new Ammo(ship.getX()+33, ship.getY());
+				Ammo x = new Ammo(ship.getX()+33, ship.getY(),4,pierce);
 				shots.add(x);
 				if(trishot == true){
-					Ammo y = new Ammo(ship.getX()+33, ship.getY());
-					Ammo z = new Ammo(ship.getX()+33, ship.getY());
+					Ammo y = new Ammo(ship.getX()+33, ship.getY(),4,pierce);
+					Ammo z = new Ammo(ship.getX()+33, ship.getY(),4,pierce);
 					trishotLeft.add(y);
 					trishotRight.add(z);
 				}
@@ -132,29 +135,30 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 				
 			}
 		}
-		alienOne.draw(graphToBack);
-		alienList.move(alienTimer);
+		try{
+			if(alienMoveTimer % 2 ==0){
+				alienList.move(alienTimer);
+			}
+		}
+		catch (Exception e){
+			
+		}
 		if(alienTimer > 800){
 			alienTimer = 0;
 		}
 	
 		alienList.draw(graphToBack);
 		
-		for(Ammo x : shots){
-			x.move("UP");
-			x.draw(graphToBack);
-			alienList.checkCollision(shots,powerups);
-			if(x.getY() < 0){
-				shots.remove(x);
-			}
-		}
+		try {
+			
+			shots.draw(graphToBack);
 		
 		for (Ammo y : trishotLeft){
 			y.move("LEFTDIAGONAL");
 			y.draw(graphToBack);
-			alienList.checkCollision(trishotLeft,powerups);
+			
 			if(y.getY() < 0){
-				shots.remove(y);
+				trishotLeft.remove(y);
 			}
 			
 		}
@@ -162,16 +166,21 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		for (Ammo z : trishotRight){
 			z.move("RIGHTDIAGONAL");
 			z.draw(graphToBack);
-			alienList.checkCollision(trishotRight,powerups);
+
 			if(z.getY() < 0){
-				shots.remove(z);
+				trishotRight.remove(z);
 			}
 			
 		}
+		alienList.checkCollision(shots.getBullets(),powerups);
+		alienList.checkCollision(trishotLeft,powerups);
+		alienList.checkCollision(trishotRight,powerups);
+		}
+		catch (Exception e){
+			
+		}
 		
-		
-		
-		
+		try{
 		for(Powerup p : powerups){
 			if(Math.abs(ship.getX() + 30 - (p.getX())) < 50 && Math.abs(ship.getY() + 35 - (p.getY())) < 50){	
 				powerups.remove(p);
@@ -181,8 +190,14 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 					stunned = true;
 				} else if(p.getType() == "TRISHOT"){
 					trishot = true;
+				} else if (p.getType() == "PIERCE"){
+					pierce = pierce + 1;
 				}
 			}
+		}
+		}
+		catch(Exception e){
+			
 		}
 		if(stunned == true){
 			alienList.slow();
@@ -203,8 +218,13 @@ public class OuterSpace extends Canvas implements KeyListener, Runnable
 		
 
 		
-
+		} else {
+			graphToBack.setColor(Color.RED);
+			graphToBack.setFont(new Font("Dialog", Font.PLAIN, 50)); 
+			graphToBack.drawString("Game Over", 300, 300);
+		}
 		twoDGraph.drawImage(back, null, 0, 0);
+		
 	}
 
 

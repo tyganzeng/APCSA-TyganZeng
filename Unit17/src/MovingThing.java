@@ -57,6 +57,12 @@ public abstract class MovingThing implements Locatable
 	}
 
 	public abstract void setSpeed( int s );
+	
+	/**
+	 * Gets the speed.
+	 *
+	 * @return the speed
+	 */
 	public abstract int getSpeed();
 	public abstract void draw(Graphics window);
 

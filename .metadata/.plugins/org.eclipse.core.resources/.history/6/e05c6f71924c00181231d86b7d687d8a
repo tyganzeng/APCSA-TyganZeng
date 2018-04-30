@@ -1,0 +1,131 @@
+
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+
+
+public class Bullets {
+
+	
+	private List<Ammo> shotsList;
+	
+	/**
+	 * Instantiates a new group of aliens.
+	 *
+	 * @param size Number of aliens
+	 * @param xPos X Position of the first alien to be created.
+	 * @param yPos Y Position of the first alien to be created.
+	 */
+	public Bullets(){
+		
+	}
+
+	public void add(Ammo x){
+		shotsList.add(x);
+		
+	}
+	
+	public void draw(Graphics window){
+		for(Alien x : aliensList){
+			x.draw(window);
+		}
+	}
+	
+	/**
+	 * Moves all aliens.
+	 *
+	 * @param alienTimer The timer that changes the direction of the aliens.
+	 */
+	public void move(int alienTimer){
+		 for(Alien x : aliensList){
+			if(alienTimer < 200){
+				x.move("RIGHT");
+			} else if(alienTimer < 400){
+				x.move("DOWN");
+			} else if(alienTimer < 600){
+				x.move("LEFT");
+			} else if(alienTimer < 800){
+				x.move("DOWN");
+			}
+		 }
+	}
+	
+	/**
+	 * Stops all movement of aliens.
+	 */
+	public void slow(){
+		for(Alien x : aliensList){
+			x.setSpeed(0);
+		}
+	}
+	
+	/**
+	 * Returns speed back to normal.
+	 */
+	public void speedUp(){
+		for(Alien x : aliensList){
+			x.setSpeed(1);
+		}
+	}
+	
+	
+	/**
+	 * Check ammo collisions with aliens. Chance to generate a random powerup
+	 * when an alien dies.
+	 *
+	 * @param shots Ammo that is currently on the screen
+	 * @param powerups List of powerups
+	 */
+	public void checkCollision(ArrayList<Ammo> shots, ArrayList<Powerup> powerups) {
+		for(Ammo x : shots){
+			for(Alien y : aliensList){
+				try{
+					if(Math.abs(x.getX() - (y.getX() + 40*y.getSize()/2)) < 40*y.getSize()/2 && Math.abs(x.getY() - (y.getY() + 40*y.getSize()/2)) < 40*y.getSize()/2){	
+						int xC  = y.getX();
+						int yC = y.getY();
+						y.loseHp();
+						x.loseHp();
+						if(y.getHp() == 0){
+							aliensList.remove(y);
+							double num = Math.random();
+							if (num < 0.3){
+								Powerup z = new Powerup(xC, yC);
+								powerups.add(z);
+							}
+						}
+						if(x.getHp() == 0){
+							shots.remove(x);
+						}
+						
+					}
+				}
+				
+				catch(Exception e){
+					
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Check game over.
+	 *
+	 * @return true, if aliens reach bottom or collide with ship
+	 */
+	public boolean checkGameOver(Ship x){
+		for(Alien y : aliensList){
+			if(y.getY() > 500){
+				return true;
+			}
+			if(Math.abs(x.getX() + 20 - (y.getX() + 40*y.getSize()/2)) < 40*y.getSize()/2 && Math.abs(x.getY()-20 - (y.getY() + 40*y.getSize()/2)) < 40*y.getSize()/2){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+}

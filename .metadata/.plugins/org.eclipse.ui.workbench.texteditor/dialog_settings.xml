@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="move" key="selection"/>
+		<item value="shots" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="move"/>
-			<item value="alien"/>
-			<item value="stunnedt"/>
-			<item value="bullettim"/>
-			<item value="a"/>
 			<item value="shots"/>
-			<item value="timer"/>
-			<item value="bulletimer"/>
+			<item value="size"/>
+			<item value="draw"/>
+			<item value="print"/>
+			<item value="alien2"/>
+			<item value="alienlist"/>
+			<item value="alienone"/>
+			<item value="alienList"/>
 		</list>
 		<list key="replacehistory">
+			<item value="Alien"/>
 			<item value="myClass"/>
 			<item value="rhs"/>
 			<item value="isGoofy"/>

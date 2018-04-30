@@ -1,0 +1,178 @@
+
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Aliens.
+ */
+public class Aliens {
+
+	/** 
+	 * The list of aliens.
+	 * */
+	private List<Alien> aliensList;
+	
+	/** 
+	 * The number of aliens to be created.
+	 */
+	private double sz = 3;
+	
+	/** 
+	 * The health points of the aliens.
+	 *  */
+	private int hp = 9;
+	
+	/**
+	 * Instantiates a new group of aliens.
+	 *
+	 * @param size Number of aliens
+	 * @param xPos X Position of the first alien to be created.
+	 * @param yPos Y Position of the first alien to be created.
+	 */
+	public Aliens(int size, int xPos, int yPos){
+		aliensList = new ArrayList<Alien>();
+		int sizeCounter = size;
+		int counter = 0;
+		for(int i = 0; i < size; i++){
+			aliensList.add(new Alien(xPos,yPos,1,hp,sz));
+			xPos = xPos + 100;
+			counter++;
+			sizeCounter--;
+			if(counter == 4){
+				xPos = 100;
+				yPos = yPos + 100;
+				counter = 0;
+			}
+			if(sizeCounter == size * 0.8){
+				sz = sz - 1.5;
+				hp = hp - 7;
+			}
+			if(sizeCounter == size * 0.3){
+				sz = sz - 0.5;
+				hp = hp - 1;
+			}
+		}
+		aliensList.add(new Alien(xPos + 100, yPos - 700, 1, 30, 5));
+		
+	}
+	
+	/**
+	 * Adds an alien to the list.
+	 *
+	 * @param x Alien to be added
+	 */
+	public void add(Alien x){
+		aliensList.add(x);
+		
+	}
+	
+	/**
+	 * Draw all aliens.
+	 *
+	 * @param window the window to be drawn on
+	 */
+	public void draw(Graphics window){
+		for(Alien x : aliensList){
+			x.draw(window);
+		}
+	}
+	
+	/**
+	 * Moves all aliens.
+	 *
+	 * @param alienTimer The timer that changes the direction of the aliens.
+	 */
+	public void move(int alienTimer){
+		 for(Alien x : aliensList){
+			if(alienTimer < 200){
+				x.move("RIGHT");
+			} else if(alienTimer < 400){
+				x.move("DOWN");
+			} else if(alienTimer < 600){
+				x.move("LEFT");
+			} else if(alienTimer < 800){
+				x.move("DOWN");
+			}
+		 }
+	}
+	
+	/**
+	 * Stops all movement of aliens.
+	 */
+	public void slow(){
+		for(Alien x : aliensList){
+			x.setSpeed(0);
+		}
+	}
+	
+	/**
+	 * Returns speed back to normal.
+	 */
+	public void speedUp(){
+		for(Alien x : aliensList){
+			x.setSpeed(1);
+		}
+	}
+	
+	
+	/**
+	 * Check collision.
+	 *
+	 * @param shots the shots
+	 * @param powerups the powerups
+	 */
+	public void checkCollision(ArrayList<Ammo> shots, ArrayList<Powerup> powerups) {
+		for(Ammo x : shots){
+			for(Alien y : aliensList){
+				try{
+					if(Math.abs(x.getX() - (y.getX() + 25)) < 50 && Math.abs(x.getY() - (y.getY() + 25)) < 50){	
+						int xC  = y.getX();
+						int yC = y.getY();
+						y.loseHp();
+						x.loseHp();
+						if(y.getHp() == 0){
+							aliensList.remove(y);
+							double num = Math.random();
+							if (num < 0.3){
+								Powerup z = new Powerup(xC, yC);
+								powerups.add(z);
+							}
+						}
+						if(x.getHp() == 0){
+							shots.remove(x);
+						}
+						
+					}
+				}
+				
+				catch(Exception e){
+					
+				}
+				
+			}
+		}
+	}
+	
+	/**
+	 * Check game over.
+	 *
+	 * @return true, if successful
+	 */
+	public boolean checkGameOver(Ship x){
+		for(Alien y : aliensList){
+			if(y.getY() > 500){
+				return true;
+			}
+			if(Math.abs(x.getX() - (y.getX() + 40*sz/2)) < 40*sz/2 && Math.abs(x.getY() - (y.getY() + 40*sz/2)) < 40*sz/2){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+}
